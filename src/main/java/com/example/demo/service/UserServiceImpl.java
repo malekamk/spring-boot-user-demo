@@ -1,4 +1,35 @@
 package com.example.demo.service;
 
-public class UserServiceImpl {
+import com.example.demo.model.User;
+import com.example.demo.repo.FakeRepoInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserServiceImpl implements UserService {
+    private final FakeRepoInterface repo;
+
+    @Autowired
+    public UserServiceImpl(FakeRepoInterface repo) {
+        this.repo = repo;
+    }
+
+    @Override
+    public void addUser(User user) {
+        if (repo.findUserById(user.getId()) != null) {
+            System.out.println("User already exists.");
+            return;
+        }
+        repo.insertUser(user);
+    }
+
+    @Override
+    public User getUser(int id) {
+        return repo.findUserById(id);
+    }
+
+    @Override
+    public void removeUser(int id) {
+        repo.deleteUser(id);
+    }
 }
