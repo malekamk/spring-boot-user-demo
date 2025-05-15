@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class FakeRepo extends FakeRepoInterface {
+public class FakeRepo implements FakeRepoInterface {
     private final List<User> users = new ArrayList<>();
 
     @Override
