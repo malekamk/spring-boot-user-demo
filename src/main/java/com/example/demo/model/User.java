@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-@Intity
+//@Intity
 public class User {
     private int id;
     private String name;
