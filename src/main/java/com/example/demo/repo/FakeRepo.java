@@ -23,7 +23,13 @@ public class FakeRepo implements FakeRepoInterface {
     }
 
     @Override
-    public void deleteUser(int id) {
-        users.removeIf(u -> u.getId() == id);
+    public boolean deleteUser(int id) {
+        return users.removeIf(u -> u.getId() == id);
+    }
+
+
+    @Override
+    public List<User> getAllUsers() {
+        return users;
     }
 }
