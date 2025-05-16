@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -22,7 +24,7 @@ public class UserController {
     @PostMapping
     @Transactional
     public ResponseEntity<String> createUser(@RequestBody User user) {
-        userService.insertUser(user);
+        userService.addUser(user);
         return ResponseEntity.ok("User created successfully with ID: " + user.getId());
     }
 
@@ -36,7 +38,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> fetchUserById(@PathVariable int id) {
-        Optional<User> user = userService.findUserById(id);
+        Optional<User> user = Optional.ofNullable(userService.getUser(id));
         return user.<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity
                         .status(404)
@@ -46,7 +48,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<String> removeUser(@PathVariable int id) {
-        boolean deleted = userService.deleteUserById(id);
+        boolean deleted = userService.removeUser(id);
         return deleted
                 ? ResponseEntity.ok("🗑️ User with ID " + id + " deleted.")
                 : ResponseEntity.status(404).body("⚠️ User not found.");
