@@ -5,6 +5,8 @@ import com.example.demo.repo.FakeRepoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final FakeRepoInterface repo;
@@ -24,12 +26,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUserById(int id) {
         return repo.findUserById(id);
     }
 
     @Override
-    public void removeUser(int id) {
-        repo.deleteUser(id);
+    public boolean deleteUserById(int id) {
+        return repo.deleteUser(id);
+    }
+    @Override
+    public List<User> getAllUsers() {
+        return repo.getAllUsers();
     }
 }

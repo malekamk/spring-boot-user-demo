@@ -8,5 +8,8 @@ public interface UserService {
     void addUser(User user);
     List<User> getAllUsers();
     User findUserById(int id);
+
+    User getUserById(int id);
+
     boolean deleteUserById(int id);
 }
