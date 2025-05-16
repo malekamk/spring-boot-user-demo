@@ -38,7 +38,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> fetchUserById(@PathVariable int id) {
-        Optional<User> user = Optional.ofNullable(userService.getUser(id));
+        Optional<User> user = Optional.ofNullable(userService.getUserById(id));
         return user.<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity
                         .status(404)
@@ -48,7 +48,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<String> removeUser(@PathVariable int id) {
-        boolean deleted = userService.removeUser(id);
+        boolean deleted = userService.deleteUserById(id);
         return deleted
                 ? ResponseEntity.ok("🗑️ User with ID " + id + " deleted.")
                 : ResponseEntity.status(404).body("⚠️ User not found.");
