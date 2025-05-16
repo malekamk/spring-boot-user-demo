@@ -7,6 +7,6 @@ import java.util.List;
 public interface FakeRepoInterface {
     void insertUser(User user);
     User findUserById(int id);
-    void deleteUser(int id);
+    boolean deleteUser(int id);
     List<User> getAllUsers();
 }
