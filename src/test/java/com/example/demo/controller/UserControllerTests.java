@@ -78,7 +78,7 @@ class UserControllerTests {
 
         mockMvc.perform(get("/api/users/{id}", 2))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("❌ No user found with ID: 2"));
+                .andExpect(content().string("? No user found with ID: 2"));
 
         verify(userService, times(1)).getUserById(2);
     }
@@ -89,7 +89,7 @@ class UserControllerTests {
 
         mockMvc.perform(delete("/api/users/{id}", 1))
                 .andExpect(status().isOk())
-                .andExpect(content().string("🗑️ User with ID 1 deleted."));
+                .andExpect(content().string("?? User with ID 1 deleted."));
 
         verify(userService, times(1)).deleteUserById(1);
     }
@@ -100,7 +100,7 @@ class UserControllerTests {
 
         mockMvc.perform(delete("/api/users/{id}", 2))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("⚠️ User not found."));
+                .andExpect(content().string("?? User not found."));
 
         verify(userService, times(1)).deleteUserById(2);
     }
